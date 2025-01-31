@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peliculas-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: peliculas-backend
+  template:
+    metadata:
+      labels:
+        app: peliculas-backend
+    spec:
+      containers:
+      - name: peliculas-backend
+        image: ismabc4/peliculas_backend:0.1
+        ports:
+        - containerPort: 8001
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql:3306/fbm_peliculas?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

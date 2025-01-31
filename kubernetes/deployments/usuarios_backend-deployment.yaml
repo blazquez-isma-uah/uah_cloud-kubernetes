@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usuarios-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: usuarios-backend
+  template:
+    metadata:
+      labels:
+        app: usuarios-backend
+    spec:
+      containers:
+      - name: usuarios-backend
+        image: ismabc4/usuarios_backend:0.1
+        ports:
+        - containerPort: 8002
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql:3306/fbm_usuarios?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

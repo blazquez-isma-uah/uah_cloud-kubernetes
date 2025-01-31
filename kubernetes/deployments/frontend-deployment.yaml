@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: ismabc4/frontend:0.1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: API_PELICULAS
+          value: "http://peliculas-backend"
+        - name: API_USUARIOS
+          value: "http://usuarios-backend"
+        - name: API_PASSWORD_GENERATOR
+          value: "http://password-generator-backend"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
