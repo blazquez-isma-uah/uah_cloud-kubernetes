@@ -15,21 +15,16 @@ spec:
       containers:
       - name: usuarios-backend
         image: ismabc4/usuarios_backend:0.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8002
         env:
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:mysql://mysql:3306/fbm_usuarios?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
+          value: "jdbc:mysql://mysql.default.svc.cluster.local:3306/fbm_usuarios?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
         - name: SPRING_DATASOURCE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: username
+          value: "root"
         - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
+          value: "4mysqlIsmaPassword_"
         resources:
           requests:
             memory: "256Mi"
