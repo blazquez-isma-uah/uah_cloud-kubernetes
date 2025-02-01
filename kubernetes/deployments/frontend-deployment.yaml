@@ -15,15 +15,16 @@ spec:
       containers:
       - name: frontend
         image: ismabc4/frontend:0.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         env:
         - name: API_PELICULAS
-          value: "http://peliculas-backend"
+          value: "http://peliculas-backend.default.svc.cluster.local"
         - name: API_USUARIOS
-          value: "http://usuarios-backend"
+          value: "http://usuarios-backend.default.svc.cluster.local"
         - name: API_PASSWORD_GENERATOR
-          value: "http://password-generator-backend"
+          value: "http://password-generator-backend.default.svc.cluster.local"
         resources:
           requests:
             memory: "256Mi"
