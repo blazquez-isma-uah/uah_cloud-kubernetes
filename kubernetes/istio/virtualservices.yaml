@@ -1,0 +1,75 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: frontend.default.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: peliculas-backend-vs
+spec:
+  hosts:
+  - peliculas-backend.default.svc.cluster.local
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/peliculas"
+    route:
+    - destination:
+        host: peliculas-backend.default.svc.cluster.local
+        port:
+          number: 8001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: usuarios-backend-vs
+spec:
+  hosts:
+  - usuarios-backend.default.svc.cluster.local
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/usuarios"
+    route:
+    - destination:
+        host: usuarios-backend.default.svc.cluster.local
+        port:
+          number: 8002
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: password-generator-backend-vs
+spec:
+  hosts:
+  - password-generator-backend.default.svc.cluster.local
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/password"
+    route:
+    - destination:
+        host: password-generator-backend.default.svc.cluster.local
+        port:
+          number: 8004
