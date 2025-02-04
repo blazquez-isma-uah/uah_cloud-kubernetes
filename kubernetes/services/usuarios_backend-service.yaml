@@ -6,7 +6,8 @@ spec:
   selector:
     app: usuarios-backend
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 8002
     targetPort: 8002
   type: ClusterIP

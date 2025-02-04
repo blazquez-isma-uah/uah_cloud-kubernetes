@@ -6,7 +6,8 @@ spec:
   selector:
     app: peliculas-backend
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 8001
     targetPort: 8001
   type: ClusterIP
