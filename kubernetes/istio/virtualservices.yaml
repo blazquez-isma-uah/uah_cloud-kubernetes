@@ -24,8 +24,6 @@ metadata:
 spec:
   hosts:
   - peliculas-backend.default.svc.cluster.local
-  gateways:
-  - app-gateway
   http:
   - match:
     - uri:
@@ -42,9 +40,7 @@ metadata:
   name: usuarios-backend-vs
 spec:
   hosts:
-  - usuarios-backend.default.svc.cluster.local
-  gateways:
-  - app-gateway
+  - usuarios-backend.default.svc.cluster.local # Tráfico interno desde el frontend
   http:
   - match:
     - uri:
@@ -62,8 +58,6 @@ metadata:
 spec:
   hosts:
   - password-generator-backend.default.svc.cluster.local
-  gateways:
-  - app-gateway
   http:
   - match:
     - uri:
