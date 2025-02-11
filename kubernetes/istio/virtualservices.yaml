@@ -27,7 +27,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: "/peliculas"
+        prefix: "/"
     route:
     - destination:
         host: peliculas-backend.default.svc.cluster.local
@@ -44,7 +44,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: "/usuarios"
+        prefix: "/"
     route:
     - destination:
         host: usuarios-backend.default.svc.cluster.local
