@@ -23,19 +23,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mysql-secret
-              key: password
-        #- name: MYSQL_DATABASE
-        #  value: "fbm_peliculas"
-        #- name: MYSQL_USER
-        #  valueFrom:
-        #    secretKeyRef:
-        #      name: mysql-secret
-        #      key: username
-        #- name: MYSQL_PASSWORD
-        #  valueFrom:
-        #    secretKeyRef:
-        #      name: mysql-secret
-        #      key: password
+              key: root-password
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
