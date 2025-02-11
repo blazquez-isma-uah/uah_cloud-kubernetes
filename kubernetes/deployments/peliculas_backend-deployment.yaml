@@ -20,7 +20,7 @@ spec:
         - containerPort: 8001
         env:
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:mysql://mysql.default.svc.cluster.local:3306/fbm_peliculas?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
+          value: "jdbc:mysql://mysql.default.svc.cluster.local:3306/fbm_peliculas?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
         - name: SPRING_DATASOURCE_USERNAME
           value: "root"
         - name: SPRING_DATASOURCE_PASSWORD
