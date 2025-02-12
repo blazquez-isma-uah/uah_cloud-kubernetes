@@ -31,8 +31,16 @@ spec:
     route:
     - destination:
         host: peliculas-backend.default.svc.cluster.local
+        subset: v1
         port:
           number: 8001
+      weight: 60
+    - destination:
+        host: peliculas-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8001
+      weight: 40
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -48,8 +56,16 @@ spec:
     route:
     - destination:
         host: usuarios-backend.default.svc.cluster.local
+        subset: v1
         port:
           number: 8002
+      weight: 90
+    - destination:
+        host: usuarios-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8002
+      weight: 10
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService

@@ -1,20 +1,65 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: usuarios-backend
+  name: usuarios-backend-v1
+  labels:
+    app: usuarios-backend
+    version: v1
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: usuarios-backend
+      version: v1
   template:
     metadata:
       labels:
         app: usuarios-backend
+        version: v1
     spec:
       containers:
       - name: usuarios-backend
         image: ismabc4/usuarios_backend:0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8002
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql.default.svc.cluster.local:3306/fbm_usuarios?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "4mysqlIsmaPassword_"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usuarios-backend-v2
+  labels:
+    app: usuarios-backend
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: usuarios-backend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: usuarios-backend
+        version: v2
+    spec:
+      containers:
+      - name: usuarios-backend
+        image: ismabc4/usuarios_backend:0.2
         imagePullPolicy: Always
         ports:
         - containerPort: 8002
