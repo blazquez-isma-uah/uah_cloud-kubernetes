@@ -81,5 +81,13 @@ spec:
     route:
     - destination:
         host: password-generator-backend.default.svc.cluster.local
+        subset: v1
         port:
           number: 8004
+      weight: 50
+    - destination:
+        host: password-generator-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8004
+      weight: 50
