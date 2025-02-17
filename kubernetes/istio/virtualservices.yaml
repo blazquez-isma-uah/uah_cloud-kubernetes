@@ -26,21 +26,43 @@ spec:
   - peliculas-backend.default.svc.cluster.local
   http:
   - match:
-    - uri:
-        prefix: "/"
+    # - uri:
+    #     prefix: "/"
+    - headers:
+        X-Version:
+          exact: "v1"
     route:
     - destination:
         host: peliculas-backend.default.svc.cluster.local
         subset: v1
         port:
           number: 8001
-      weight: 60
+  - match:
+    # - uri:
+    #     prefix: "/"
+    - headers:
+        X-Version:
+          exact: "v2"
+    route:
     - destination:
         host: peliculas-backend.default.svc.cluster.local
         subset: v2
         port:
           number: 8001
-      weight: 40
+  - route:
+    # En caso de que no se envíe la cabecera, mantener el balanceo
+    - destination:
+        host: peliculas-backend.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 8001
+      weight: 100
+    - destination:
+        host: peliculas-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8001
+      weight: 0
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -51,21 +73,43 @@ spec:
   - usuarios-backend.default.svc.cluster.local # Tráfico interno desde el frontend
   http:
   - match:
-    - uri:
-        prefix: "/"
+    # - uri:
+    #     prefix: "/"
+    - headers:
+        X-Version:
+          exact: "v1"
     route:
     - destination:
         host: usuarios-backend.default.svc.cluster.local
         subset: v1
         port:
           number: 8002
-      weight: 90
+  - match:
+    # - uri:
+    #     prefix: "/"
+    - headers:
+        X-Version:
+          exact: "v2"
+    route:
     - destination:
         host: usuarios-backend.default.svc.cluster.local
         subset: v2
         port:
           number: 8002
-      weight: 10
+  - route:
+    # En caso de que no se envíe la cabecera, mantener el balanceo
+    - destination:
+        host: usuarios-backend.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 8002
+      weight: 100
+    - destination:
+        host: usuarios-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8002
+      weight: 0
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -76,18 +120,40 @@ spec:
   - password-generator-backend.default.svc.cluster.local
   http:
   - match:
-    - uri:
-        prefix: "/password"
+    # - uri:
+    #     prefix: "/password"
+    - headers:
+        X-Version:
+          exact: "v1"
     route:
     - destination:
         host: password-generator-backend.default.svc.cluster.local
         subset: v1
         port:
           number: 8004
-      weight: 50
+  - match:
+    # - uri:
+    #     prefix: "/password"
+    - headers:
+        X-Version:
+          exact: "v2"
+    route:
     - destination:
         host: password-generator-backend.default.svc.cluster.local
         subset: v2
         port:
           number: 8004
-      weight: 50
+  - route:
+    # En caso de que no se envíe la cabecera, mantener el balanceo
+    - destination:
+        host: password-generator-backend.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 8004
+      weight: 100
+    - destination:
+        host: password-generator-backend.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8004
+      weight: 0
