@@ -17,8 +17,3 @@ for i in $(seq 1 $num_requests_v2); do
 done
 
 wait
-
-# for i in {1..150}; do
-#     curl -s -o /dev/null -w "Request $i -> %{http_code}\n" http://localhost/cpeliculas/listado &
-# done
-# wait

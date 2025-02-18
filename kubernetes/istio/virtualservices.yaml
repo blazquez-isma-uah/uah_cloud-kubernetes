@@ -26,8 +26,6 @@ spec:
   - peliculas-backend.default.svc.cluster.local
   http:
   - match:
-    # - uri:
-    #     prefix: "/"
     - headers:
         X-Version:
           exact: "v1"
@@ -38,8 +36,6 @@ spec:
         port:
           number: 8001
   - match:
-    # - uri:
-    #     prefix: "/"
     - headers:
         X-Version:
           exact: "v2"
@@ -70,11 +66,9 @@ metadata:
   name: usuarios-backend-vs
 spec:
   hosts:
-  - usuarios-backend.default.svc.cluster.local # Tráfico interno desde el frontend
+  - usuarios-backend.default.svc.cluster.local
   http:
   - match:
-    # - uri:
-    #     prefix: "/"
     - headers:
         X-Version:
           exact: "v1"
@@ -85,8 +79,6 @@ spec:
         port:
           number: 8002
   - match:
-    # - uri:
-    #     prefix: "/"
     - headers:
         X-Version:
           exact: "v2"
@@ -120,8 +112,6 @@ spec:
   - password-generator-backend.default.svc.cluster.local
   http:
   - match:
-    # - uri:
-    #     prefix: "/password"
     - headers:
         X-Version:
           exact: "v1"
@@ -132,8 +122,6 @@ spec:
         port:
           number: 8004
   - match:
-    # - uri:
-    #     prefix: "/password"
     - headers:
         X-Version:
           exact: "v2"
