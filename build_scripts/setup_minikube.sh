@@ -9,17 +9,4 @@ else
     echo "🔄 Iniciando Minikube..."
     minikube start
 fi
-
-# Configurar el túnel para acceder a los servicios expuestos en LoadBalancer
-echo "🌐 Configurando túnel de Minikube..."
-nohup minikube tunnel > /dev/null 2>&1 &
-
-# Lanzar el dashboard de Kubernetes en segundo plano
-echo "📊 Iniciando el dashboard de Kubernetes..."
-nohup minikube dashboard > /dev/null 2>&1 &
-
-# Iniciar Kiali para monitorear Istio
-echo "📡 Iniciando Kiali para Istio..."
-nohup istioctl dashboard kiali > /dev/null 2>&1 &
-
-echo "🎉 Minikube y herramientas iniciadas correctamente."
+kubectl apply -f kubernetes/istio/istio-1.24.2/samples/addons
