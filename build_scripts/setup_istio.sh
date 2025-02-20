@@ -24,7 +24,10 @@ kubectl apply -f ../kubernetes/istio/destinationrule.yaml
 echo "Verificando si los addons de Istio están instalados..."
 if ! kubectl get pods -n istio-system | grep -q kiali; then
     echo "Instalando los addons de Istio..."
-    kubectl apply -f ../kubernetes/istio/istio-1.24.2/samples/addons
+    kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.24/samples/addons/kiali.yaml
+    kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.24/samples/addons/prometheus.yaml
+    kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.24/samples/addons/grafana.yaml
+    kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.24/samples/addons/jaeger.yaml
 else
     echo "Los addons de Istio ya están instalados"
 fi
