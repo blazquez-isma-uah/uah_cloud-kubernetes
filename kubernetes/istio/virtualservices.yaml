@@ -46,7 +46,7 @@ spec:
         port:
           number: 8001
   - route:
-    # En caso de que no se envíe la cabecera, mantener el balanceo
+    # En caso de que no se envíe la cabecera, balance de carga entre las versiones
     - destination:
         host: peliculas-backend.default.svc.cluster.local
         subset: v1
@@ -89,7 +89,7 @@ spec:
         port:
           number: 8002
   - route:
-    # En caso de que no se envíe la cabecera, mantener el balanceo
+    # En caso de que no se envíe la cabecera, balance de carga entre las versiones
     - destination:
         host: usuarios-backend.default.svc.cluster.local
         subset: v1
@@ -132,7 +132,7 @@ spec:
         port:
           number: 8004
   - route:
-    # En caso de que no se envíe la cabecera, mantener el balanceo
+    # En caso de que no se envíe la cabecera, balance de carga entre las versiones
     - destination:
         host: password-generator-backend.default.svc.cluster.local
         subset: v1

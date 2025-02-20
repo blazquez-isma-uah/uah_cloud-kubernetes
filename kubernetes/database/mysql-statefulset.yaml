@@ -27,14 +27,12 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
-        # Script sql de iniciación para crear las 2 bbdd
         - name: mysql-initdb
           mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
-      # Script sql de iniciación para crear las 2 bbdd
       - name: mysql-initdb
         configMap:
           name: mysql-initdb-config

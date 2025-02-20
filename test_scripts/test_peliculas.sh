@@ -13,7 +13,7 @@ for i in $(seq 1 $num_requests_v1); do
 done
 
 for i in $(seq 1 $num_requests_v2); do
-    curl -s -o /dev/null -w "Request v2 - $i -> %{http_code}\n" -H "X-Version: v2" -X GET http://localhost/cpeliculas/listado 
+    curl -s -o /dev/null -w "Request v2 - $i -> %{http_code}\n" -H "X-Version: v2" -X GET http://localhost/cpeliculas/listado &
 done
 
 wait
