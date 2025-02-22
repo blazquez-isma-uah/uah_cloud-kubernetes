@@ -30,8 +30,4 @@ nohup minikube dashboard > /dev/null 2>&1 &
 echo "Iniciando Kiali para Istio..."
 nohup istioctl dashboard kiali > /dev/null 2>&1 &
 
-# Verificación final
-echo "Verificando que todos los Pods estén corriendo..."
-kubectl get pods --namespace=default
-
 echo "Despliegue completo finalizado con éxito"

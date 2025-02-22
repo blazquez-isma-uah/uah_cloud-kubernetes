@@ -12,6 +12,15 @@ fi
 
 # Aplicar los YAML de base de datos
 echo "Aplicando configuración de almacenamiento..."
+
+# Crear el ConfigMap con los scripts SQL si no existe
+if ! kubectl get configmap mysql-initdb-config &> /dev/null; then
+    echo "Creando ConfigMap con los scripts de inicialización..."
+    kubectl create configmap mysql-initdb-config --from-file=../database_scripts/init.sql --from-file=../database_scripts/init_database.sql --from-file=../database_scripts/fbm_peliculas.sql --from-file=../database_scripts/fbm_usuarios.sql --from-file=../database_scripts/init_peliculas.sql --from-file=../database_scripts/init_usuarios.sql
+else
+    echo "ConfigMap mysql-initdb-config ya existe"
+fi
+
 kubectl apply -f ../kubernetes/database/mysql-pv.yaml
 kubectl apply -f ../kubernetes/database/mysql-statefulset.yaml
 kubectl apply -f ../kubernetes/services/mysql-service.yaml
@@ -25,18 +34,5 @@ done
 
 echo "MySQL está corriendo"
 
-# Crear el ConfigMap con los scripts SQL si no existe
-if ! kubectl get configmap mysql-initdb-config &> /dev/null; then
-    echo "Creando ConfigMap con los scripts de inicialización..."
-    kubectl create configmap mysql-initdb-config \
-        --from-file=../database_scripts/init.sql \
-        --from-file=../database_scripts/init_database.sql \
-        --from-file=../database_scripts/fbm_peliculas.sql \
-        --from-file=../database_scripts/fbm_usuarios.sql \
-        --from-file=../database_scripts/init_peliculas.sql \
-        --from-file=../database_scripts/init_usuarios.sql
-else
-    echo "ConfigMap mysql-initdb-config ya existe"
-fi
 
 echo "Despliegue de base de datos completado"

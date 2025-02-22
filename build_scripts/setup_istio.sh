@@ -2,6 +2,10 @@
 
 echo "Configurando Istio en Kubernetes..."
 
+# Instalar Istio si no está instalado
+echo "Instalando Istio con perfil demo..."
+istioctl install --set profile=demo -y
+
 # Etiquetar el namespace default para la inyección automática de sidecars
 echo "Habilitando la inyección automática de sidecars en el namespace default..."
 kubectl label namespace default istio-injection=enabled --overwrite
